@@ -1,3 +1,5 @@
+import type { Response } from "./types/base-types"
+
 const API_URL = import.meta.env.VITE_API_URL
 
 export function useCRUD<TData, TOne, TCreate = undefined, TUpdate = undefined>(
@@ -6,7 +8,7 @@ export function useCRUD<TData, TOne, TCreate = undefined, TUpdate = undefined>(
 ) {
   const queryClient = useQueryClient()
 
-  async function getAll(): Promise<TData> {
+  async function getAll(): Promise<Response<TData>> {
     const res = await fetch(`${API_URL}${url}`)
     if (!res.ok) throw new Error("Failed to fetch")
     return res.json()
